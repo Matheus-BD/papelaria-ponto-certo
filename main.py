@@ -3,6 +3,7 @@ def mostrar_menu(qtd_produtos):
     print(f"Produtos cadastrados: {qtd_produtos}")
     print("1 - Cadastrar produto")
     print("2 - Consultar produto")
+    print("3 - Listar produtos")
     print("0 - Sair")
 
 def cadastrar_produto(produtos):
@@ -14,7 +15,7 @@ def cadastrar_produto(produtos):
             preco_valido = True
         else:
             print("Preço inválido. Digite um valor maior que zero.")
-    produtos.insert(0, (nome, preco))
+    produtos.insert(0, [nome, preco])
     print("Produto cadastrado com sucesso!")
     print(f"Total de produtos: {len(produtos)}")
 
@@ -33,8 +34,17 @@ def consultar_produto(produtos):
     if not encontrado:
         print("Produto não encontrado.")
 
+def listar_produtos(produtos):
+    print("=== Produtos cadastrados ===\n")
+    for i in range(len(produtos)):
+        caractres = len(produtos[i][0])
+        numero_de_pontos = 15
+        quantida_de_pontos = "." *(numero_de_pontos - caractres)
+        print(f"{i}. {produtos[i][0]} {quantida_de_pontos} R${produtos[i][1]:.2f}")
 produtos = []
 continuar = True
+
+print(f"´" * 15)
 
 while continuar:
     mostrar_menu(len(produtos))
@@ -43,6 +53,8 @@ while continuar:
         cadastrar_produto(produtos)
     elif opcao == "2":
         consultar_produto(produtos)
+    elif opcao == "3":
+        listar_produtos(produtos)
     elif opcao == "0":
         continuar = False
     else:
