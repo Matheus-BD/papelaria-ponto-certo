@@ -1,10 +1,15 @@
+import os 
+
+def limpar_terminal():
+    os.system("clear")
+
 def mostrar_menu(qtd_produtos):
-    print("\n--- Menu ---")
+    print("---------- Menu ----------\n")
     print(f"Produtos cadastrados: {qtd_produtos}")
     print("1 - Cadastrar produto")
     print("2 - Consultar produto")
     print("3 - Listar produtos")
-    print("0 - Sair")
+    print("0 - Sair\n")
 
 def cadastrar_produto(produtos):
     nome = input("Nome do produto: ")
@@ -36,26 +41,37 @@ def consultar_produto(produtos):
 
 def listar_produtos(produtos):
     print("=== Produtos cadastrados ===\n")
+    numero_de_pontos = 15
     for i in range(len(produtos)):
         caractres = len(produtos[i][0])
-        numero_de_pontos = 15
+        if caractres > numero_de_pontos:
+            numero_de_pontos = caractres + 2
+    for i in range(len(produtos)):
+        caractres = len(produtos[i][0])
         quantida_de_pontos = "." *(numero_de_pontos - caractres)
-        print(f"{i}. {produtos[i][0]} {quantida_de_pontos} R${produtos[i][1]:.2f}")
+        print(f"{i+1}. {produtos[i][0]} {quantida_de_pontos} R${produtos[i][1]:.2f}")
+        input("\nPressione entre para continuar...")
+
+
+
 produtos = []
-continuar = True
 
 print(f"´" * 15)
 
-while continuar:
+while True:
     mostrar_menu(len(produtos))
     opcao = input("Escolha uma opção: ")
+    limpar_terminal()
     if opcao == "1":
         cadastrar_produto(produtos)
+        limpar_terminal()
     elif opcao == "2":
         consultar_produto(produtos)
+        limpar_terminal()
     elif opcao == "3":
         listar_produtos(produtos)
+        limpar_terminal()
     elif opcao == "0":
-        continuar = False
+        break
     else:
         print("Opção inválida.")
